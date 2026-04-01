@@ -1,0 +1,23 @@
+{
+  "ExtendedData": {
+    "inputs": [
+      "http://192.168.1.3/WebHMISServiceNUnit/CommonService.svc"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, ComServRef"
+    ],
+    "references": [
+      "Microsoft.OpenApi, {Microsoft.OpenApi, 2.3.0}",
+      "Swashbuckle.AspNetCore.Swagger, {Swashbuckle.AspNetCore.Swagger, 10.0.0}",
+      "Swashbuckle.AspNetCore.SwaggerGen, {Swashbuckle.AspNetCore.SwaggerGen, 10.0.0}",
+      "Swashbuckle.AspNetCore.SwaggerUI, {Swashbuckle.AspNetCore.SwaggerUI, 10.0.0}",
+      "System.Text.Json, {System.Text.Json, 8.0.5}"
+    ],
+    "targetFramework": "net8.0",
+    "typeReuseMode": "All"
+  }
+}

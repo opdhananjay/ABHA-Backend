@@ -1,0 +1,6 @@
+@ABDM_HostAddress = http://localhost:5283
+
+GET {{ABDM_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

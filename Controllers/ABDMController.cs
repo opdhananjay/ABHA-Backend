@@ -218,5 +218,17 @@ namespace ABDM.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
+
+        [HttpPost("GetPatient")]
+        public async Task<IActionResult> GetPatient(string searchText)
+        {
+            if (string.IsNullOrEmpty(searchText))
+            {
+                return BadRequest(new ApiResponse<object>(false, 400, "Search Criteria is required"));
+            }
+
+            var response = await _aadhaarServices.GetPatient(searchText);
+            return StatusCode(response.StatusCode, response);
+        }
     }
 }

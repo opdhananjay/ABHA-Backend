@@ -19,5 +19,6 @@ namespace ABDM.ExternalServices
         Task<ApiResponse<object>> SearchAbhaByAddress(AbhaAddress abhaAddress);
         Task<ApiResponse<object>> GetAbhaProfile(GetAbha getAbha);
         Task<ApiResponse<object>> GetAbhaCard(GetAbha getAbha);
+        Task<ApiResponse<object>> GetPatient(string searchText);
     }
 }

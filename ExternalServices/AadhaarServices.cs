@@ -1,9 +1,16 @@
 ﻿using ABDM.Helpers;
 using ABDM.Models;
+using ComServRef;
 using Microsoft.Extensions.Configuration;
+using System.Data;
+using System.Diagnostics.Contracts;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Xml.Linq;
+using System.Data;
+using System.IO;
 
 namespace ABDM.ExternalServices
 {
@@ -243,5 +250,64 @@ namespace ABDM.ExternalServices
             var responseJson = await apiResponse.Content.ReadAsStringAsync();
             return new ApiResponse<object>(true, 200, "Success", responseJson);
         }
+
+
+        // Fetch Patinet - 
+        public async Task<ApiResponse<object>> GetPatient(string searchText)
+        {
+            string smrno = "";
+            string fname = "";
+            string contact = "";
+
+            if (searchText.All(char.IsDigit))
+            {
+                if (searchText.Length == 10)
+                    contact = searchText;
+                else
+                    smrno = searchText;
+            }
+            else
+            {
+                fname = searchText;
+            }
+
+            DataSet ds = new DataSet();
+
+            CommonServiceClient comserv = new CommonServiceClient();
+
+            var response = await comserv.GetOPPatientDetailsAsync(
+                smrno, fname, "", "", contact,
+                "", "", "", "", "", "", "", "", "", "", "", "", "", "Y", ""
+            );
+
+            string xmlResult = response.GetOPPatientDetailsResult;
+
+            if (string.IsNullOrEmpty(xmlResult))
+            {
+                return new ApiResponse<object>(false, 404, "No Data found");
+            }
+
+            using (var reader = new StringReader(xmlResult))
+            {
+                ds.ReadXml(reader);
+            }
+
+            var table = ds.Tables.Cast<DataTable>().FirstOrDefault();
+
+            if (table == null || table.Rows.Count == 0)
+            {
+                return new ApiResponse<object>(false, 404, "No Data found");
+            }
+
+            var jsonData = table.AsEnumerable().Select(row => new
+            {
+                firstName = $"{row["SALUNAME"]} {row["PATNAME"]}".Trim(),
+                mrNo = row["MRNO"]?.ToString()?.Trim()
+            }).ToList();
+
+            return new ApiResponse<object>(true, 200, "Data Found", jsonData);
+        }
+
+
     }
 }

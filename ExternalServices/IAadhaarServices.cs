@@ -20,5 +20,7 @@ namespace ABDM.ExternalServices
         Task<ApiResponse<object>> GetAbhaProfile(GetAbha getAbha);
         Task<ApiResponse<object>> GetAbhaCard(GetAbha getAbha);
         Task<ApiResponse<object>> GetPatient(string searchText);
+        Task<ApiResponse<object>> GetPatientByMrNo(string mrNo);
+        Task<ApiResponse<object>> SavePatient(SavePatientRequest request);
     }
 }

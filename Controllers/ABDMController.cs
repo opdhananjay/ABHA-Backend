@@ -230,5 +230,33 @@ namespace ABDM.Controllers
             var response = await _aadhaarServices.GetPatient(searchText);
             return StatusCode(response.StatusCode, response);
         }
+
+        [HttpPost("GetPatientByMrNo")]
+        public async Task<IActionResult> GetPatientByMrNo(string mrNo)
+        {
+            if (string.IsNullOrEmpty(mrNo))
+            {
+                return BadRequest(new ApiResponse<object>(false, 400, "Mrno is required"));
+            }
+
+            var response = await _aadhaarServices.GetPatientByMrNo(mrNo);
+            return StatusCode(response.StatusCode, response);
+        }
+
+
+        [HttpPost("save-patient")]
+        public async Task<IActionResult> SavePatient([FromBody] SavePatientRequest request)
+        {
+            try
+            {
+                var result = await _aadhaarServices.SavePatient(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

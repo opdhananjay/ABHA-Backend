@@ -65,5 +65,34 @@ namespace ABDM.Models
         public string transactionId { get; set; }
     }
 
+    public class SavePatientRequest
+    {
+        public string? MRNo { get; set; }
+
+        public string Patfname { get; set; }
+        public string Patlname { get; set; }
+        public string Patdob { get; set; }
+        public string Patsex { get; set; }
+        public string Patmobile { get; set; }
+        public string Patemail { get; set; }
+
+        public string Pataddr1 { get; set; }
+        public string Districtid { get; set; }
+        public string Regionid { get; set; }
+        public string Cityid { get; set; }
+        public string Countryid { get; set; }
+        public string Zip { get; set; }
+
+        public string AbhaNumber { get; set; }
+        public string AbhaAddress { get; set; }
+
+        public string Salutation { get; set; }
+        public string IdentityCode { get; set; }
+        public string IdentityNumber { get; set; }
+        public string UserID { get; set; }
+        public string Patage { get; set; }
+
+        public int TranMode { get; set; } //1=new, 2=update
+    }
 
 }

@@ -46,6 +46,8 @@ try
     builder.Services.AddHttpClient();
     builder.Services.AddScoped<IAuthServices, AuthServices>(); // Authentication Service 
     builder.Services.AddScoped<IAadhaarServices, AadhaarServices>(); // Aadhaar Services  
+    builder.Services.AddScoped<IMasterService, MasterService>(); // Aadhaar Services  
+
 
     var app = builder.Build();
 

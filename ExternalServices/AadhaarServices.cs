@@ -4,7 +4,6 @@ using ComServRef;
 using Microsoft.Extensions.Configuration;
 using OPServRef;
 using System.Data;
-using System.Data;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Net.Http;
@@ -324,7 +323,7 @@ namespace ABDM.ExternalServices
 
                 var response = await comserv.GetOPPatientDetailsAsync(
                     mrNo,     // SMRNO
-                    "Kar",       // First name
+                    "",       // First name
                     "",       // Middle name
                     "",       // Last name
                     "",       // Contact
@@ -652,11 +651,14 @@ namespace ABDM.ExternalServices
                 regis.Pataddr2 = "";
                 regis.Pataddr3 = "";
 
-                regis.Cityid = request.Cityid ?? "";
-                regis.Districtid = request.Districtid ?? "";
-                regis.Regionid = request.Regionid ?? "";
-                regis.Countryid = request.Countryid ?? "";
+                regis.Cityid = request.Cityid ?? "004";
+                regis.Districtid = request.Districtid ?? "414";
+                regis.Regionid = request.Regionid ?? "022";
+                regis.Countryid = request.Countryid ?? "079";
                 regis.Zip = request.Zip ?? "";
+
+                // Missing legacy field
+                regis.Areaid = "0397";
 
                 // =========================
                 // Permanent Address
@@ -665,14 +667,16 @@ namespace ABDM.ExternalServices
                 regis.Patpaddr2 = "";
                 regis.Patpaddr3 = "";
 
-                regis.Patpcitycd = request.Cityid ?? "";
-                regis.PatPDistID = request.Districtid ?? "";
-                regis.Patpregncd = request.Regionid ?? "";
-                regis.Patpcntrcd = request.Countryid ?? "";
+                regis.Patpcitycd = request.Cityid ?? "004";
+                regis.PatPDistID = request.Districtid ?? "414";
+                regis.Patpregncd = request.Regionid ?? "022";
+                regis.Patpcntrcd = request.Countryid ?? "079";
 
                 regis.Ppincode = request.Zip ?? "";
                 regis.Patpmobl = request.Patmobile ?? "";
-                regis.PatpAreacd = "";
+
+                // Missing legacy field
+                regis.PatpAreacd = "0397";
 
                 // =========================
                 // Guardian Details
@@ -689,6 +693,11 @@ namespace ABDM.ExternalServices
                 regis.Patgcntrcd = "";
                 regis.PatgAreacd = "";
 
+                // Missing legacy fields
+                regis.Patgphon1 = "";
+                regis.Patgphon2 = "";
+                regis.Patgregncd = "";
+
                 // =========================
                 // Registration Config
                 // =========================
@@ -702,7 +711,12 @@ namespace ABDM.ExternalServices
                 regis.PatientSource = "02";
 
                 regis.Priority = "N";
+                regis.PriorityRemarks = "";
+
                 regis.Regstatus = "R";
+
+                // Missing legacy field
+                regis.RegTranTimeTaken = "00:00";
 
                 // =========================
                 // Identity
@@ -711,7 +725,23 @@ namespace ABDM.ExternalServices
                 regis.IdentityNumber = request.IdentityNumber ?? "";
 
                 // =========================
-                // Referral / Optional Fields
+                // Nationality
+                // =========================
+                regis.Nationlity = "01";
+
+                // =========================
+                // Scheme
+                // =========================
+                regis.SchemeCode = "testValue";
+
+                // =========================
+                // Department
+                // =========================
+                regis.Deptcode = "";
+                regis.Gpincode = "";
+
+                // =========================
+                // Referral Fields
                 // =========================
                 regis.Refdoctcd = "";
                 regis.Refhosp = "";
@@ -758,21 +788,10 @@ namespace ABDM.ExternalServices
                 regis.ModuleID = "03";
                 regis.IpAddress = "::1";
 
-                // =========================
-                // Future ABHA Mapping
-                // =========================
-                /*
-                regis.AbhaNumber = request.AbhaNumber;
-                regis.AbhaAddress = request.AbhaAddress;
-                */
-
                 string response = "";
 
                 using (OutpatientClient op = new OutpatientClient())
                 {
-                    // =========================
-                    // NEW REGISTRATION
-                    // =========================
                     if (request.TranMode == 1)
                     {
                         regis.TranMode = 1;
@@ -786,24 +805,22 @@ namespace ABDM.ExternalServices
                         if (response.Contains("Successful"))
                         {
                             return new ApiResponse<object>(
-                                true,
-                                200,
-                                "Patient saved successfully",
-                                response
-                            );
+                              true,
+                              200,
+                              "Patient saved successfully",
+                              response
+                          );
                         }
-
-                        return new ApiResponse<object>(
-                            false,
-                            400,
-                            "Kindly try again",
-                            response
-                        );
+                        else
+                        {
+                            return new ApiResponse<object>(
+                               true,
+                               200,
+                               "Kindly try again",
+                               response
+                           );
+                        }
                     }
-
-                    // =========================
-                    // UPDATE EXISTING PATIENT
-                    // =========================
                     else if (request.TranMode == 2)
                     {
                         regis.TranMode = 2;
@@ -825,15 +842,16 @@ namespace ABDM.ExternalServices
                                 response
                             );
                         }
-
-                        return new ApiResponse<object>(
-                            false,
-                            400,
-                            "Kindly try again",
-                            response
-                        );
+                        else
+                        {
+                            return new ApiResponse<object>(
+                               true,
+                               200,
+                               "Kindly try again",
+                               response
+                           );
+                        }
                     }
-
                     else
                     {
                         return new ApiResponse<object>(
@@ -853,6 +871,5 @@ namespace ABDM.ExternalServices
                 );
             }
         }
-
     }
 }

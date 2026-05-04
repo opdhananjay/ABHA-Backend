@@ -12,6 +12,8 @@ using System.Reflection.Metadata;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Xml.Linq;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
 
 namespace ABDM.ExternalServices
 {
@@ -322,7 +324,7 @@ namespace ABDM.ExternalServices
                 CommonServiceClient comserv = new CommonServiceClient();
 
                 var response = await comserv.GetOPPatientDetailsAsync(
-                    mrNo,     // SMRNO
+                    mrNo.Trim(),     // SMRNO
                     "",       // First name
                     "",       // Middle name
                     "",       // Last name
@@ -368,30 +370,45 @@ namespace ABDM.ExternalServices
                     middleName = row["PATMNAME"]?.ToString()?.Trim(),
                     lastName = row["PATLNAME"]?.ToString()?.Trim(),
 
-                    fullName = row["PATNAME"]?.ToString()?.Trim(),
-
-                    mobile = row["PATMOBILE"]?.ToString()?.Trim(),
-                    email = row["PATEMAIL"]?.ToString()?.Trim(),
+                    dateOfBirth = row["PATDOB"]?.ToString()?.Trim(),
 
                     gender = row["PATSEX"]?.ToString()?.Trim(),
-                    dob = row["PATDOB"]?.ToString()?.Trim(),
 
-                    address1 = row["PATADDR1"]?.ToString()?.Trim(),
-                    address2 = row["PATADDR2"]?.ToString()?.Trim(),
-                    address3 = row["PATADDR3"]?.ToString()?.Trim(),
+                    mobile = row["PATMOBILE"]?.ToString()?.Trim(),
+
+                    email = row["PATEMAIL"]?.ToString()?.Trim(),
+
+                    salutationId = row["SALUTATION"]?.ToString()?.Trim(),
 
                     cityId = row["CITYID"]?.ToString()?.Trim(),
                     districtId = row["DISTRICTID"]?.ToString()?.Trim(),
-                    regionId = row["REGIONID"]?.ToString()?.Trim(),
+                    stateId = row["REGIONID"]?.ToString()?.Trim(),
 
-                    zip = row["ZIP"]?.ToString()?.Trim(),
+                    countryId = row.Table.Columns.Contains("COUNTRYID")
+                    ? row["COUNTRYID"]?.ToString()?.Trim()
+                    : "079",
 
-                    patCategory = row["PATCATGCD"]?.ToString()?.Trim(),
-                    tariffId = row["TARIFFID"]?.ToString()?.Trim(),
+                                maritalStatus = row.Table.Columns.Contains("PATMARTSTS")
+                    ? row["PATMARTSTS"]?.ToString()?.Trim()
+                    : "",
 
-                    verifiedMobile = row.Table.Columns.Contains("VERIFIEDCONTACT")
-                        ? row["VERIFIEDCONTACT"]?.ToString()?.Trim()
-                        : ""
+                                occupation = row.Table.Columns.Contains("PATOCCUP")
+                    ? row["PATOCCUP"]?.ToString()?.Trim()
+                    : "",
+
+                                religion = row.Table.Columns.Contains("PATRELIGIN")
+                    ? row["PATRELIGIN"]?.ToString()?.Trim()
+                    : "",
+
+                                bloodGroup = row.Table.Columns.Contains("PATBLODGRP")
+                    ? row["PATBLODGRP"]?.ToString()?.Trim()
+                    : "",
+
+                    address = new
+                    {
+                        line = row["PATADDR1"]?.ToString()?.Trim(),
+                        pincode = row["ZIP"]?.ToString()?.Trim()
+                    }
                 };
 
                 return new ApiResponse<object>(
@@ -416,210 +433,16 @@ namespace ABDM.ExternalServices
             }
         }
 
-        // Save | Update
-        //public async Task<ApiResponse<object>> SavePatient(SavePatientRequest request)
-        //{
-        //    try
-        //    {
-        //        BL_OPRegistration regis = new BL_OPRegistration();
-
-        //        // =========================
-        //        // Personal Details
-        //        // =========================
-        //        regis.Salutation = request.Salutation;
-        //        regis.Patfname = request.Patfname;
-        //        regis.Patlname = request.Patlname;
-        //        regis.PatName = $"{request.Patfname} {request.Patlname}".Trim();
-
-        //        regis.Patdob = request.Patdob;
-        //        regis.Patsex = request.Patsex;
-
-        //        // Optional
-        //        regis.Patmname = "";
-        //        regis.Patage = request.Patage;
-
-        //        // =========================
-        //        // Contact Details
-        //        // =========================
-        //        regis.Patmobile = request.Patmobile;
-        //        regis.Patemail = request.Patemail;
-
-        //        regis.VerifiedContacts =
-        //            $"{request.Patmobile}/{request.Patmobile},{request.Patemail}";
-
-        //        // =========================
-        //        // Current Address
-        //        // =========================
-        //        regis.Pataddr1 = request.Pataddr1;
-        //        regis.Pataddr2 = "";
-        //        regis.Pataddr3 = "";
-
-        //        regis.Cityid = request.Cityid;
-        //        regis.Districtid = request.Districtid;
-        //        regis.Regionid = request.Regionid;
-        //        regis.Countryid = request.Countryid;
-        //        regis.Zip = request.Zip;
-
-        //        // =========================
-        //        // Permanent Address
-        //        // Legacy system expects this too
-        //        // =========================
-        //        regis.Patpaddr1 = request.Pataddr1;
-        //        regis.Patpaddr2 = "";
-        //        regis.Patpaddr3 = "";
-
-        //        regis.Patpcitycd = request.Cityid;
-        //        regis.PatPDistID = request.Districtid;
-        //        regis.Patpregncd = request.Regionid;
-        //        regis.Patpcntrcd = request.Countryid;
-
-        //        regis.Ppincode = request.Zip;
-        //        regis.Patpmobl = request.Patmobile;
-
-        //        // =========================
-        //        // Default Registration Config
-        //        // =========================
-
-        //        regis.Patcatgcd = "001";
-        //        regis.Pattypcd = "01";
-        //        regis.Tariffid = "01";
-        //        regis.Paytype = "01";
-
-        //        regis.HospUnit = "02";
-        //        regis.CntrCd = "03";
-        //        regis.PatientSource = "02";
-
-        //        regis.Priority = "N";
-        //        regis.Regstatus = "R";
-
-        //        // =========================
-        //        // Identity
-        //        // =========================
-        //        regis.IdentityCode = request.IdentityCode;  // "004"  - Aadhar 
-        //        regis.IdentityNumber = request.IdentityNumber;  
-
-        //        // Later replace with Aadhaar if needed
-        //        // regis.IdentityNumber = request.AadhaarNumber;
-
-        //        // =========================
-        //        // System Fields
-        //        // =========================
-        //        regis.UserID = request.UserID;
-        //        regis.ModuleID = "03";
-        //        regis.IpAddress = "::1";
-
-        //        // =========================
-        //        // Future ABHA Mapping
-        //        // Uncomment when DB/service supports it
-        //        // =========================
-
-        //        /*
-        //        regis.AbhaNumber = request.AbhaNumber;
-        //        regis.AbhaAddress = request.AbhaAddress;
-        //        */
-
-        //        string response = "";
-
-        //        using (OutpatientClient op = new OutpatientClient())
-        //        {
-        //            // =========================
-        //            // NEW REGISTRATION
-        //            // =========================
-        //            if (request.TranMode == 1)
-        //            {
-        //                regis.TranMode = 1;
-        //                regis.TranModeSpecified = true;
-
-        //                var result = await op.SaveUpdateRegistrationAsync(regis);
-
-        //                response = result.SaveUpdateRegistrationResult;
-
-        //                if (response.Contains("Successful"))
-        //                {
-        //                    return new ApiResponse<object>(
-        //                      true,
-        //                      200,
-        //                      "Patient saved successfully",
-        //                      response
-        //                  );
-        //                }
-        //                else
-        //                {
-        //                    return new ApiResponse<object>(
-        //                       true,
-        //                       200,
-        //                       "Kindly try again",
-        //                       response
-        //                   );   
-        //                }
-        //            }
-
-        //            // =========================
-        //            // UPDATE EXISTING PATIENT
-        //            // =========================
-        //            else if (request.TranMode == 2)
-        //            {
-        //                regis.TranMode = 2;
-        //                regis.TranModeSpecified = true;
-
-        //                regis.MRNo = request.MRNo;
-
-        //                var result = await op.SaveUpdateRegistrationAsync(regis);
-
-        //                response = result.SaveUpdateRegistrationResult;
-
-        //                if (response.Contains("Successful"))
-        //                {
-        //                    return new ApiResponse<object>(
-        //                        true,
-        //                        200,
-        //                        "Patient updated successfully",
-        //                        response
-        //                    );
-        //                }
-        //                else
-        //                {
-        //                    return new ApiResponse<object>(
-        //                       true,
-        //                       200,
-        //                       "Kindly try again",
-        //                       response
-        //                   );
-        //                }
-
-        //            }
-
-        //            else
-        //            {
-        //                return new ApiResponse<object>(
-        //                    false,
-        //                    400,
-        //                    "Invalid TranMode"
-        //                );
-        //            }
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new ApiResponse<object>(
-        //            false,
-        //            500,
-        //            ex.Message
-        //        );
-        //    }
-        //}
-
         public async Task<ApiResponse<object>> SavePatient(SavePatientRequest request)
         {
             try
             {
-                BL_OPRegistration regis = new BL_OPRegistration();
+                BL_OPRegistration regis =
+                    new BL_OPRegistration();
 
-                // =========================
-                // Personal Details
-                // =========================
-                regis.Salutation = request.Salutation ?? "004";
+                // ====================================================
+                // ABDM PROFILE DATA (Readonly from frontend)
+                // ====================================================
 
                 regis.Patfname = request.Patfname ?? "";
                 regis.Patlname = request.Patlname ?? "";
@@ -632,55 +455,131 @@ namespace ABDM.ExternalServices
                 regis.Patsex = request.Patsex ?? "";
                 regis.Patage = request.Patage ?? "";
 
-                // =========================
-                // Contact Details
-                // =========================
                 regis.Patmobile = request.Patmobile ?? "";
-                regis.Patemail = request.Patemail ?? "";
 
-                regis.Patophone = "";
-                regis.Patrphone = "";
+                // User editable
+                regis.Patemail = request.Patemail ?? "";
 
                 regis.VerifiedContacts =
                     $"{request.Patmobile ?? ""}/{request.Patmobile ?? ""},{request.Patemail ?? ""}";
 
-                // =========================
-                // Current Address
-                // =========================
-                regis.Pataddr1 = request.Pataddr1 ?? "";
+
+                // ====================================================
+                // USER SELECTED DROPDOWNS
+                // ====================================================
+
+                regis.Salutation =
+                    request.Salutation ?? "004";  // Master 
+
+                regis.Cityid =
+                    request.Cityid;  
+
+                regis.Districtid =
+                    request.Districtid;
+
+                regis.Regionid =
+                    request.Regionid;
+
+                // ABDM India only
+                regis.Countryid =
+                    request.Countryid ?? "079";  // 079 - India 
+
+
+                // ====================================================
+                // ADDRESS
+                // ====================================================
+
+                regis.Pataddr1 =
+                    request.Pataddr1 ?? "";
+
                 regis.Pataddr2 = "";
                 regis.Pataddr3 = "";
 
-                regis.Cityid = request.Cityid ?? "004";
-                regis.Districtid = request.Districtid ?? "414";
-                regis.Regionid = request.Regionid ?? "022";
-                regis.Countryid = request.Countryid ?? "079";
-                regis.Zip = request.Zip ?? "";
+                regis.Zip =
+                    request.Zip ?? "";
 
-                // Missing legacy field
                 regis.Areaid = "0397";
 
-                // =========================
-                // Permanent Address
-                // =========================
-                regis.Patpaddr1 = request.Pataddr1 ?? "";
+
+                // ====================================================
+                // PERMANENT ADDRESS
+                // Same as current address
+                // ====================================================
+
+                regis.Patpaddr1 =
+                    request.Pataddr1 ?? "";
+
                 regis.Patpaddr2 = "";
                 regis.Patpaddr3 = "";
 
-                regis.Patpcitycd = request.Cityid ?? "004";
-                regis.PatPDistID = request.Districtid ?? "414";
-                regis.Patpregncd = request.Regionid ?? "022";
-                regis.Patpcntrcd = request.Countryid ?? "079";
+                regis.Patpcitycd =
+                    request.Cityid ?? "004";
 
-                regis.Ppincode = request.Zip ?? "";
-                regis.Patpmobl = request.Patmobile ?? "";
+                regis.PatPDistID =
+                    request.Districtid ?? "414";
 
-                // Missing legacy field
+                regis.Patpregncd =
+                    request.Regionid ?? "022";
+
+                regis.Patpcntrcd =
+                    request.Countryid ?? "079";
+
+                regis.Ppincode =
+                    request.Zip ?? "";
+
+                regis.Patpmobl =
+                    request.Patmobile ?? "";
+
+                regis.Patpphon1 =
+                    request.Patmobile ?? "";
+
+                regis.Patpphon2 =
+                    request.Patmobile ?? "";
+
                 regis.PatpAreacd = "0397";
 
-                // =========================
-                // Guardian Details
-                // =========================
+
+                // ====================================================
+                // IDENTITY (AADHAAR)
+                // ====================================================
+
+                regis.IdentityCode = "004";
+
+                regis.IdentityNumber =
+                    request.IdentityNumber ?? "";
+
+                regis.AdharNo =
+                    request.IdentityNumber ?? "";
+
+                regis.AdharHolder =
+                    request.Patfname ?? "";
+
+
+                // ====================================================
+                // OPTIONAL FRONTEND FIELDS
+                // Add later in UI if needed
+                // ====================================================
+
+                regis.Patmartsts =
+                    request.MaritalStatus ?? "";
+
+                regis.Patoccup =
+                    request.Occupation ?? "";
+
+                regis.Patreligin =
+                    request.Religion ?? "";
+
+                regis.Patblodgrp =
+                    request.BloodGroup ?? "";
+
+                regis.Patincgrp = "";
+
+
+                // ====================================================
+                // GUARDIAN DETAILS
+                // Required by legacy service
+                // ====================================================
+
                 regis.Patgname = "";
                 regis.Patgreln = "";
                 regis.Patgmobl = "";
@@ -693,14 +592,17 @@ namespace ABDM.ExternalServices
                 regis.Patgcntrcd = "";
                 regis.PatgAreacd = "";
 
-                // Missing legacy fields
                 regis.Patgphon1 = "";
                 regis.Patgphon2 = "";
                 regis.Patgregncd = "";
 
-                // =========================
-                // Registration Config
-                // =========================
+                regis.PatGDistID = "NA";
+
+
+                // ====================================================
+                // REGISTRATION DEFAULTS
+                // ====================================================
+
                 regis.Patcatgcd = "001";
                 regis.Pattypcd = "01";
                 regis.Tariffid = "01";
@@ -708,41 +610,29 @@ namespace ABDM.ExternalServices
 
                 regis.HospUnit = "02";
                 regis.CntrCd = "03";
+
                 regis.PatientSource = "02";
 
                 regis.Priority = "N";
                 regis.PriorityRemarks = "";
 
                 regis.Regstatus = "R";
-
-                // Missing legacy field
                 regis.RegTranTimeTaken = "00:00";
 
-                // =========================
-                // Identity
-                // =========================
-                regis.IdentityCode = request.IdentityCode ?? "004";
-                regis.IdentityNumber = request.IdentityNumber ?? "";
-
-                // =========================
-                // Nationality
-                // =========================
                 regis.Nationlity = "01";
+                regis.SchemeCode = "";
 
-                // =========================
-                // Scheme
-                // =========================
-                regis.SchemeCode = "testValue";
+                // ====================================================
+                // LEGACY REQUIRED EMPTY FIELDS
+                // Do not remove (SOAP throws null errors)
+                // ====================================================
 
-                // =========================
-                // Department
-                // =========================
+                regis.Patophone = "";
+                regis.Patrphone = "";
+
                 regis.Deptcode = "";
                 regis.Gpincode = "";
 
-                // =========================
-                // Referral Fields
-                // =========================
                 regis.Refdoctcd = "";
                 regis.Refhosp = "";
                 regis.Referedby = "";
@@ -750,28 +640,38 @@ namespace ABDM.ExternalServices
                 regis.Prefdoct = "";
                 regis.Cliniccd = "";
 
-                // =========================
-                // Insurance / Employee
-                // =========================
                 regis.Crdcompcd = "";
                 regis.Empid = "";
                 regis.Empname = "";
                 regis.Empdepndcd = "";
 
-                // =========================
-                // Misc Fields
-                // =========================
                 regis.TokenNo = "";
                 regis.Letterno = "";
                 regis.Cardno = "";
                 regis.Oldmrno = "";
 
                 regis.PANNo = "";
+                regis.PANCardHolder = "NA";
+
                 regis.Passportno = "";
 
-                // =========================
-                // Numeric/Specified Fields
-                // =========================
+                regis.Relatnship = "NA";
+                regis.Validupto = "NA";
+
+                regis.Conscatg = "NA";
+                regis.Consdoct = "NA";
+
+                regis.ExempProof = "NA";
+                regis.FundSource = "NA";
+
+                regis.SplEvent = "NA";
+                regis.PatientCaseType = "NA";
+
+
+                // ====================================================
+                // NUMERIC FLAGS
+                // ====================================================
+
                 regis.Cardlimit = 0;
                 regis.CardlimitSpecified = true;
 
@@ -781,83 +681,92 @@ namespace ABDM.ExternalServices
                 regis.AplidamtSpecified = false;
                 regis.AvllmtSpecified = false;
 
-                // =========================
-                // System Fields
-                // =========================
-                regis.UserID = request.UserID ?? "AI22";
+
+                // ====================================================
+                // SYSTEM INFO
+                // ====================================================
+
+                regis.UserID =
+                    request.UserID ?? "SYSTEM";
+
                 regis.ModuleID = "03";
                 regis.IpAddress = "::1";
 
+
                 string response = "";
 
-                using (OutpatientClient op = new OutpatientClient())
+                using (OutpatientClient op =
+                    new OutpatientClient())
                 {
-                    if (request.TranMode == 1)
+                    using (
+                        new OperationContextScope(
+                            (IClientChannel)op.InnerChannel
+                        )
+                    )
                     {
-                        regis.TranMode = 1;
-                        regis.TranModeSpecified = true;
+                        var httpRequestProperty =
+                            new HttpRequestMessageProperty();
 
-                        var result =
-                            await op.SaveUpdateRegistrationAsync(regis);
+                        // Dynamic unit selection
+                        httpRequestProperty.Headers[
+                            "appUnitSelection"
+                        ] =
+                            request.appUnitSelection;
 
-                        response = result.SaveUpdateRegistrationResult;
+                        OperationContext.Current
+                            .OutgoingMessageProperties[
+                                HttpRequestMessageProperty.Name
+                            ] = httpRequestProperty;
 
-                        if (response.Contains("Successful"))
+
+                        // NEW PATIENT
+                        if (request.TranMode == 1)
                         {
-                            return new ApiResponse<object>(
-                              true,
-                              200,
-                              "Patient saved successfully",
-                              response
-                          );
+                            regis.TranMode = 1;
+                            regis.TranModeSpecified = true;
+                        }
+
+                        // UPDATE EXISTING
+                        else if (request.TranMode == 2)
+                        {
+                            regis.TranMode = 2;
+                            regis.TranModeSpecified = true;
+
+                            regis.MRNo =
+                                request.MRNo ?? "";
                         }
                         else
                         {
                             return new ApiResponse<object>(
-                               true,
-                               200,
-                               "Kindly try again",
-                               response
-                           );
+                                false,
+                                400,
+                                "Invalid TranMode"
+                            );
                         }
-                    }
-                    else if (request.TranMode == 2)
-                    {
-                        regis.TranMode = 2;
-                        regis.TranModeSpecified = true;
-
-                        regis.MRNo = request.MRNo ?? "";
 
                         var result =
                             await op.SaveUpdateRegistrationAsync(regis);
 
-                        response = result.SaveUpdateRegistrationResult;
+                        response =
+                            result.SaveUpdateRegistrationResult;
 
                         if (response.Contains("Successful"))
                         {
                             return new ApiResponse<object>(
                                 true,
                                 200,
-                                "Patient updated successfully",
+                                request.TranMode == 1
+                                    ? "Patient saved successfully"
+                                    : "Patient updated successfully",
                                 response
                             );
                         }
-                        else
-                        {
-                            return new ApiResponse<object>(
-                               true,
-                               200,
-                               "Kindly try again",
-                               response
-                           );
-                        }
-                    }
-                    else
-                    {
+
                         return new ApiResponse<object>(
                             false,
                             400,
-                            "Invalid TranMode"
+                            "Kindly try again",
+                            response
                         );
                     }
                 }

@@ -231,8 +231,8 @@ namespace ABDM.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        [HttpPost("GetPatientByMrNo")]
-        public async Task<IActionResult> GetPatientByMrNo(string mrNo)
+        [HttpPost("GetPatientByMrNo/mrNo")]
+        public async Task<IActionResult> GetPatientByMrNo([FromQuery]string mrNo)
         {
             if (string.IsNullOrEmpty(mrNo))
             {
@@ -247,15 +247,13 @@ namespace ABDM.Controllers
         [HttpPost("save-patient")]
         public async Task<IActionResult> SavePatient([FromBody] SavePatientRequest request)
         {
-            try
+            if (string.IsNullOrEmpty(request.appUnitSelection))
             {
-                var result = await _aadhaarServices.SavePatient(request);
-                return Ok(result);
+                return BadRequest(new ApiResponse<object>(false, 400, "Kindly Login Unit"));
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            var response = await _aadhaarServices.SavePatient(request);
+            return StatusCode(response.StatusCode, response);
         }
 
     }

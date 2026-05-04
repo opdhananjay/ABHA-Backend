@@ -267,6 +267,12 @@ namespace ComServRef
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
         System.Threading.Tasks.Task<ComServRef.GetAppointmentTypeListResponse> GetAppointmentTypeListAsync(ComServRef.GetAppointmentTypeListRequest request);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommonService/GetVisitPurposeList", ReplyAction="http://tempuri.org/ICommonService/GetVisitPurposeListResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BL_AdminCommProp))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
+        System.Threading.Tasks.Task<ComServRef.GetVisitPurposeListResponse> GetVisitPurposeListAsync(ComServRef.GetVisitPurposeListRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommonService/GetExemCatgList", ReplyAction="http://tempuri.org/ICommonService/GetExemCatgListResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BL_AdminCommProp))]
@@ -572,6 +578,12 @@ namespace ComServRef
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BL_AdminCommProp))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
         System.Threading.Tasks.Task<ComServRef.GetCTServiceListResponse> GetCTServiceListAsync(ComServRef.GetCTServiceListRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommonService/GetPatientIPOPSuggest", ReplyAction="http://tempuri.org/ICommonService/GetPatientIPOPSuggestResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BL_AdminCommProp))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
+        System.Threading.Tasks.Task<ComServRef.GetPatientIPOPSuggestResponse> GetPatientIPOPSuggestAsync(ComServRef.GetPatientIPOPSuggestRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommonService/Decrypt", ReplyAction="http://tempuri.org/ICommonService/DecryptResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -3553,6 +3565,622 @@ namespace ComServRef
             set
             {
                 this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/BL_Logic.Consent")]
+    public partial class BL_Consent
+    {
+        
+        private string consentByField;
+        
+        private string ipAddressField;
+        
+        private string ipNoField;
+        
+        private string mRNoField;
+        
+        private string moduleIDField;
+        
+        private string patNameField;
+        
+        private string patientTypeField;
+        
+        private string statusField;
+        
+        private string tempIDField;
+        
+        private string templateField;
+        
+        private string tranNoField;
+        
+        private int tranmodeField;
+        
+        private bool tranmodeFieldSpecified;
+        
+        private string userIDField;
+        
+        private string walkInYNField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=0)]
+        public string ConsentBy
+        {
+            get
+            {
+                return this.consentByField;
+            }
+            set
+            {
+                this.consentByField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=1)]
+        public string IpAddress
+        {
+            get
+            {
+                return this.ipAddressField;
+            }
+            set
+            {
+                this.ipAddressField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=2)]
+        public string IpNo
+        {
+            get
+            {
+                return this.ipNoField;
+            }
+            set
+            {
+                this.ipNoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=3)]
+        public string MRNo
+        {
+            get
+            {
+                return this.mRNoField;
+            }
+            set
+            {
+                this.mRNoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=4)]
+        public string ModuleID
+        {
+            get
+            {
+                return this.moduleIDField;
+            }
+            set
+            {
+                this.moduleIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=5)]
+        public string PatName
+        {
+            get
+            {
+                return this.patNameField;
+            }
+            set
+            {
+                this.patNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=6)]
+        public string PatientType
+        {
+            get
+            {
+                return this.patientTypeField;
+            }
+            set
+            {
+                this.patientTypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=7)]
+        public string Status
+        {
+            get
+            {
+                return this.statusField;
+            }
+            set
+            {
+                this.statusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=8)]
+        public string TempID
+        {
+            get
+            {
+                return this.tempIDField;
+            }
+            set
+            {
+                this.tempIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=9)]
+        public string Template
+        {
+            get
+            {
+                return this.templateField;
+            }
+            set
+            {
+                this.templateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=10)]
+        public string TranNo
+        {
+            get
+            {
+                return this.tranNoField;
+            }
+            set
+            {
+                this.tranNoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
+        public int Tranmode
+        {
+            get
+            {
+                return this.tranmodeField;
+            }
+            set
+            {
+                this.tranmodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool TranmodeSpecified
+        {
+            get
+            {
+                return this.tranmodeFieldSpecified;
+            }
+            set
+            {
+                this.tranmodeFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=12)]
+        public string UserID
+        {
+            get
+            {
+                return this.userIDField;
+            }
+            set
+            {
+                this.userIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=13)]
+        public string WalkInYN
+        {
+            get
+            {
+                return this.walkInYNField;
+            }
+            set
+            {
+                this.walkInYNField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/BL_Logic.Consent")]
+    public partial class BL_ConsentTemplateMaster
+    {
+        
+        private string codeField;
+        
+        private string nameField;
+        
+        private string patientTypeField;
+        
+        private string statusField;
+        
+        private string templateDataField;
+        
+        private int tranmodeField;
+        
+        private bool tranmodeFieldSpecified;
+        
+        private string userIDField;
+        
+        private string verificationYNField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=0)]
+        public string Code
+        {
+            get
+            {
+                return this.codeField;
+            }
+            set
+            {
+                this.codeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=1)]
+        public string Name
+        {
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=2)]
+        public string PatientType
+        {
+            get
+            {
+                return this.patientTypeField;
+            }
+            set
+            {
+                this.patientTypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=3)]
+        public string Status
+        {
+            get
+            {
+                return this.statusField;
+            }
+            set
+            {
+                this.statusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=4)]
+        public string TemplateData
+        {
+            get
+            {
+                return this.templateDataField;
+            }
+            set
+            {
+                this.templateDataField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public int Tranmode
+        {
+            get
+            {
+                return this.tranmodeField;
+            }
+            set
+            {
+                this.tranmodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool TranmodeSpecified
+        {
+            get
+            {
+                return this.tranmodeFieldSpecified;
+            }
+            set
+            {
+                this.tranmodeFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=6)]
+        public string UserID
+        {
+            get
+            {
+                return this.userIDField;
+            }
+            set
+            {
+                this.userIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=7)]
+        public string VerificationYN
+        {
+            get
+            {
+                return this.verificationYNField;
+            }
+            set
+            {
+                this.verificationYNField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/BL_Logic")]
+    public partial class BL_TwoOrThreeFldMst
+    {
+        
+        private string centralMasterYNField;
+        
+        private string codeField;
+        
+        private string commonForAllUnitsYNField;
+        
+        private string fIELD3ValField;
+        
+        private string fIELDMasterTypeField;
+        
+        private string moduleNameField;
+        
+        private string nameField;
+        
+        private string statusField;
+        
+        private string tbleIDField;
+        
+        private int tranModeField;
+        
+        private bool tranModeFieldSpecified;
+        
+        private string unitStatusField;
+        
+        private string userIDField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=0)]
+        public string CentralMasterYN
+        {
+            get
+            {
+                return this.centralMasterYNField;
+            }
+            set
+            {
+                this.centralMasterYNField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=1)]
+        public string Code
+        {
+            get
+            {
+                return this.codeField;
+            }
+            set
+            {
+                this.codeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=2)]
+        public string CommonForAllUnitsYN
+        {
+            get
+            {
+                return this.commonForAllUnitsYNField;
+            }
+            set
+            {
+                this.commonForAllUnitsYNField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=3)]
+        public string FIELD3Val
+        {
+            get
+            {
+                return this.fIELD3ValField;
+            }
+            set
+            {
+                this.fIELD3ValField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=4)]
+        public string FIELDMasterType
+        {
+            get
+            {
+                return this.fIELDMasterTypeField;
+            }
+            set
+            {
+                this.fIELDMasterTypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=5)]
+        public string ModuleName
+        {
+            get
+            {
+                return this.moduleNameField;
+            }
+            set
+            {
+                this.moduleNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=6)]
+        public string Name
+        {
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=7)]
+        public string Status
+        {
+            get
+            {
+                return this.statusField;
+            }
+            set
+            {
+                this.statusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=8)]
+        public string TbleID
+        {
+            get
+            {
+                return this.tbleIDField;
+            }
+            set
+            {
+                this.tbleIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
+        public int TranMode
+        {
+            get
+            {
+                return this.tranModeField;
+            }
+            set
+            {
+                this.tranModeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool TranModeSpecified
+        {
+            get
+            {
+                return this.tranModeFieldSpecified;
+            }
+            set
+            {
+                this.tranModeFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=10)]
+        public string UnitStatus
+        {
+            get
+            {
+                return this.unitStatusField;
+            }
+            set
+            {
+                this.unitStatusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=11)]
+        public string userID
+        {
+            get
+            {
+                return this.userIDField;
+            }
+            set
+            {
+                this.userIDField = value;
             }
         }
     }
@@ -9296,622 +9924,6 @@ namespace ComServRef
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/BL_Logic")]
-    public partial class BL_TwoOrThreeFldMst
-    {
-        
-        private string centralMasterYNField;
-        
-        private string codeField;
-        
-        private string commonForAllUnitsYNField;
-        
-        private string fIELD3ValField;
-        
-        private string fIELDMasterTypeField;
-        
-        private string moduleNameField;
-        
-        private string nameField;
-        
-        private string statusField;
-        
-        private string tbleIDField;
-        
-        private int tranModeField;
-        
-        private bool tranModeFieldSpecified;
-        
-        private string unitStatusField;
-        
-        private string userIDField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=0)]
-        public string CentralMasterYN
-        {
-            get
-            {
-                return this.centralMasterYNField;
-            }
-            set
-            {
-                this.centralMasterYNField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=1)]
-        public string Code
-        {
-            get
-            {
-                return this.codeField;
-            }
-            set
-            {
-                this.codeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=2)]
-        public string CommonForAllUnitsYN
-        {
-            get
-            {
-                return this.commonForAllUnitsYNField;
-            }
-            set
-            {
-                this.commonForAllUnitsYNField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=3)]
-        public string FIELD3Val
-        {
-            get
-            {
-                return this.fIELD3ValField;
-            }
-            set
-            {
-                this.fIELD3ValField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=4)]
-        public string FIELDMasterType
-        {
-            get
-            {
-                return this.fIELDMasterTypeField;
-            }
-            set
-            {
-                this.fIELDMasterTypeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=5)]
-        public string ModuleName
-        {
-            get
-            {
-                return this.moduleNameField;
-            }
-            set
-            {
-                this.moduleNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=6)]
-        public string Name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=7)]
-        public string Status
-        {
-            get
-            {
-                return this.statusField;
-            }
-            set
-            {
-                this.statusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=8)]
-        public string TbleID
-        {
-            get
-            {
-                return this.tbleIDField;
-            }
-            set
-            {
-                this.tbleIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
-        public int TranMode
-        {
-            get
-            {
-                return this.tranModeField;
-            }
-            set
-            {
-                this.tranModeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool TranModeSpecified
-        {
-            get
-            {
-                return this.tranModeFieldSpecified;
-            }
-            set
-            {
-                this.tranModeFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=10)]
-        public string UnitStatus
-        {
-            get
-            {
-                return this.unitStatusField;
-            }
-            set
-            {
-                this.unitStatusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=11)]
-        public string userID
-        {
-            get
-            {
-                return this.userIDField;
-            }
-            set
-            {
-                this.userIDField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/BL_Logic.Consent")]
-    public partial class BL_Consent
-    {
-        
-        private string consentByField;
-        
-        private string ipAddressField;
-        
-        private string ipNoField;
-        
-        private string mRNoField;
-        
-        private string moduleIDField;
-        
-        private string patNameField;
-        
-        private string patientTypeField;
-        
-        private string statusField;
-        
-        private string tempIDField;
-        
-        private string templateField;
-        
-        private string tranNoField;
-        
-        private int tranmodeField;
-        
-        private bool tranmodeFieldSpecified;
-        
-        private string userIDField;
-        
-        private string walkInYNField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=0)]
-        public string ConsentBy
-        {
-            get
-            {
-                return this.consentByField;
-            }
-            set
-            {
-                this.consentByField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=1)]
-        public string IpAddress
-        {
-            get
-            {
-                return this.ipAddressField;
-            }
-            set
-            {
-                this.ipAddressField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=2)]
-        public string IpNo
-        {
-            get
-            {
-                return this.ipNoField;
-            }
-            set
-            {
-                this.ipNoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=3)]
-        public string MRNo
-        {
-            get
-            {
-                return this.mRNoField;
-            }
-            set
-            {
-                this.mRNoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=4)]
-        public string ModuleID
-        {
-            get
-            {
-                return this.moduleIDField;
-            }
-            set
-            {
-                this.moduleIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=5)]
-        public string PatName
-        {
-            get
-            {
-                return this.patNameField;
-            }
-            set
-            {
-                this.patNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=6)]
-        public string PatientType
-        {
-            get
-            {
-                return this.patientTypeField;
-            }
-            set
-            {
-                this.patientTypeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=7)]
-        public string Status
-        {
-            get
-            {
-                return this.statusField;
-            }
-            set
-            {
-                this.statusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=8)]
-        public string TempID
-        {
-            get
-            {
-                return this.tempIDField;
-            }
-            set
-            {
-                this.tempIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=9)]
-        public string Template
-        {
-            get
-            {
-                return this.templateField;
-            }
-            set
-            {
-                this.templateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=10)]
-        public string TranNo
-        {
-            get
-            {
-                return this.tranNoField;
-            }
-            set
-            {
-                this.tranNoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
-        public int Tranmode
-        {
-            get
-            {
-                return this.tranmodeField;
-            }
-            set
-            {
-                this.tranmodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool TranmodeSpecified
-        {
-            get
-            {
-                return this.tranmodeFieldSpecified;
-            }
-            set
-            {
-                this.tranmodeFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=12)]
-        public string UserID
-        {
-            get
-            {
-                return this.userIDField;
-            }
-            set
-            {
-                this.userIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=13)]
-        public string WalkInYN
-        {
-            get
-            {
-                return this.walkInYNField;
-            }
-            set
-            {
-                this.walkInYNField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/BL_Logic.Consent")]
-    public partial class BL_ConsentTemplateMaster
-    {
-        
-        private string codeField;
-        
-        private string nameField;
-        
-        private string patientTypeField;
-        
-        private string statusField;
-        
-        private string templateDataField;
-        
-        private int tranmodeField;
-        
-        private bool tranmodeFieldSpecified;
-        
-        private string userIDField;
-        
-        private string verificationYNField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=0)]
-        public string Code
-        {
-            get
-            {
-                return this.codeField;
-            }
-            set
-            {
-                this.codeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=1)]
-        public string Name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=2)]
-        public string PatientType
-        {
-            get
-            {
-                return this.patientTypeField;
-            }
-            set
-            {
-                this.patientTypeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=3)]
-        public string Status
-        {
-            get
-            {
-                return this.statusField;
-            }
-            set
-            {
-                this.statusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=4)]
-        public string TemplateData
-        {
-            get
-            {
-                return this.templateDataField;
-            }
-            set
-            {
-                this.templateDataField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
-        public int Tranmode
-        {
-            get
-            {
-                return this.tranmodeField;
-            }
-            set
-            {
-                this.tranmodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool TranmodeSpecified
-        {
-            get
-            {
-                return this.tranmodeFieldSpecified;
-            }
-            set
-            {
-                this.tranmodeFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=6)]
-        public string UserID
-        {
-            get
-            {
-                return this.userIDField;
-            }
-            set
-            {
-                this.userIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=7)]
-        public string VerificationYN
-        {
-            get
-            {
-                return this.verificationYNField;
-            }
-            set
-            {
-                this.verificationYNField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/BL_Logic.SelectionList")]
     public partial class ConsultantListItem
     {
@@ -15034,6 +15046,40 @@ namespace ComServRef
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetVisitPurposeList", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GetVisitPurposeListRequest
+    {
+        
+        public GetVisitPurposeListRequest()
+        {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetVisitPurposeListResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GetVisitPurposeListResponse
+    {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
+        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/BL_Logic.SelectionList")]
+        public ComServRef.SelectLstItem[] GetVisitPurposeListResult;
+        
+        public GetVisitPurposeListResponse()
+        {
+        }
+        
+        public GetVisitPurposeListResponse(ComServRef.SelectLstItem[] GetVisitPurposeListResult)
+        {
+            this.GetVisitPurposeListResult = GetVisitPurposeListResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="GetExemCatgList", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
     public partial class GetExemCatgListRequest
     {
@@ -17336,6 +17382,53 @@ namespace ComServRef
         public GetCTServiceListResponse(ComServRef.SelectLstItem[] GetCTServiceListResult)
         {
             this.GetCTServiceListResult = GetCTServiceListResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetPatientIPOPSuggest", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GetPatientIPOPSuggestRequest
+    {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string strSearchPatient;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string strIPOP;
+        
+        public GetPatientIPOPSuggestRequest()
+        {
+        }
+        
+        public GetPatientIPOPSuggestRequest(string strSearchPatient, string strIPOP)
+        {
+            this.strSearchPatient = strSearchPatient;
+            this.strIPOP = strIPOP;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetPatientIPOPSuggestResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GetPatientIPOPSuggestResponse
+    {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string GetPatientIPOPSuggestResult;
+        
+        public GetPatientIPOPSuggestResponse()
+        {
+        }
+        
+        public GetPatientIPOPSuggestResponse(string GetPatientIPOPSuggestResult)
+        {
+            this.GetPatientIPOPSuggestResult = GetPatientIPOPSuggestResult;
         }
     }
     
@@ -34138,6 +34231,18 @@ namespace ComServRef
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<ComServRef.GetVisitPurposeListResponse> ComServRef.ICommonService.GetVisitPurposeListAsync(ComServRef.GetVisitPurposeListRequest request)
+        {
+            return base.Channel.GetVisitPurposeListAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<ComServRef.GetVisitPurposeListResponse> GetVisitPurposeListAsync()
+        {
+            ComServRef.GetVisitPurposeListRequest inValue = new ComServRef.GetVisitPurposeListRequest();
+            return ((ComServRef.ICommonService)(this)).GetVisitPurposeListAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<ComServRef.GetExemCatgListResponse> ComServRef.ICommonService.GetExemCatgListAsync(ComServRef.GetExemCatgListRequest request)
         {
             return base.Channel.GetExemCatgListAsync(request);
@@ -34841,6 +34946,20 @@ namespace ComServRef
             ComServRef.GetCTServiceListRequest inValue = new ComServRef.GetCTServiceListRequest();
             inValue.strServiceCD = strServiceCD;
             return ((ComServRef.ICommonService)(this)).GetCTServiceListAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<ComServRef.GetPatientIPOPSuggestResponse> ComServRef.ICommonService.GetPatientIPOPSuggestAsync(ComServRef.GetPatientIPOPSuggestRequest request)
+        {
+            return base.Channel.GetPatientIPOPSuggestAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<ComServRef.GetPatientIPOPSuggestResponse> GetPatientIPOPSuggestAsync(string strSearchPatient, string strIPOP)
+        {
+            ComServRef.GetPatientIPOPSuggestRequest inValue = new ComServRef.GetPatientIPOPSuggestRequest();
+            inValue.strSearchPatient = strSearchPatient;
+            inValue.strIPOP = strIPOP;
+            return ((ComServRef.ICommonService)(this)).GetPatientIPOPSuggestAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -40033,7 +40152,7 @@ namespace ComServRef
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_ICommonService))
             {
-                return new System.ServiceModel.EndpointAddress("http://192.168.1.3/WebHMISServiceNUnit/CommonService.svc/CommonService.svc");
+                return new System.ServiceModel.EndpointAddress("http://uat.himstccf.org:83/WebHMISService/CommonService.svc/CommonService.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
